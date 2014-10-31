@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en" ng-app="GS">
+<head>	
+	<title>Angular js </title>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">	
+	<link rel="stylesheet" href="3p/css/bootstrap.min.css">
+	<link rel="stylesheet" href="3p/css/jquery-ui.min.css">
+	<link rel="stylesheet" href="3p/css/common.css">	
+	<script src="js/libs/jquery.min.js"></script>
+	<script src="js/libs/jquery-ui.min.js"></script>
+	<script src="js/libs/bootstrap.min.js"></script>
+	<script src="js/libs/angular.min.js"></script>
+	<script src="js/d3.js"></script>
+	<script src="js/Gapp.js"></script>
+	<script src="js/Gserver.js"></script>
+	<script src="js/fc_app.js"></script>
+	<script>
+		function clear(elementID)
+		{
+		  document.getElementById(elementID).innerHTML="";
+		}
+	</script>
+	
+</head>
+
+<body ng-controller="GSCtrl" ng-init="getall();render();clearone()"  onload="setVisibility('visible', 'none')";>
+	<div class="container"  id="playground">
+		<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+	        <div class="container">
+			<div class="row">
+				<div class="col-md-7">
+				<a class="navbar-brand" href="#"><font color="white"><h3>GRAPH SEARCH</h3> </font></a>
+				</div>
+				<div class="col-md-4"></div>
+				<div class="col-md-1">
+				<input type="hidden" name="db" id="d1"/>
+				<input type="hidden" name="uid1" id="u1"/>
+				<input type="hidden" name="api" id="a1"/><br>
+				<a class="navbar-brand" href="#"><span class="glyphicon glyphicon-cog white" data-toggle="modal" data-target="#myModal"></span></a>
+				</div>
+			</div>
+		</div>
+		</div>
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+ 		<div class="modal-dialog">
+  			<div class="modal-content">
+     				<div class="modal-header">
+       					<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+        				<h4 class="modal-title" id="myModalLabel">MORE INFO</h4>
+     				 </div>
+    				<div class="modal-body">
+       					<p>
+					DB:<input type="text" name="db1" id="data"/><br/><br/>
+					UID:<input type="text" name="uid" id="uid"/><br/><br/>
+					API:<input type="text" name="api1" id="api"/>
+					</p>
+     				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal" ng-click="save()">save</button>
+					<button type="button" class="btn btn-default"  ng-click="clearall()">Clear</button>
+				</div>
+ 			</div>
+ 		</div>
+		</div>
+		<div classs="container-fluid">
+			<div class="row">
+				<div class="col-xs-2">
+					<div class="row" id="GSAdd">
+						<form class="form-inline" role="form"></form>
+						<div class="form-group">
+						<br/><br/><br/><br/><br/><br/><br/>
+						<button id="GSSubmit" class="btn btn-default" ng-click="addNode();render();"> +</button><br/><br/>
+						<!--<button id="GSSubmit" class="btn btn-default" ng-click="render();"> render</button><br/><br/>-->
+						<div id="visible" style="position: relative; ">
+							<input type="hidden" name="nodeId" id="nodeId"/><br/><br/>
+							<!--<h4>Name:</h4><input type="text" name="nodeName" id="nodeName"/><br/><br/>-->
+							<h4>Type:</h4><input type="text" name="nodeType" id="nodeType"/><br/><br/>
+							<h4>Aka:</h4><textarea rows="2" cols="20" name="nodeAka" id="nodeAka"></textarea><br/><br/>
+							<h4>Fmap:</h4><textarea rows="4" cols="20" name="nodeFmap" id="nodeFmap"></textarea><br/><br/><br/>
+							<button type="button" class="btn btn-default" ng-click="update();">save</button>
+							 <a href=# class="btn btn-default" onclick="setVisibility('visible', 'none');";>Close</a>
+						</div>
+						
+						</div>					
+					</div>
+				
+				</div>	<br/><br/><br/><br/>	
+			<div  class="col-xs-7" id="svgVisualize"></div>
+			<div class="col-xs-3">
+	
+				
+				<br/><br/>
+				<div class="container">
+					<div id="content">
+						<ul id="tabs" class="nav nav-pills" data-tabs="tabs">
+							 <li class="active"><a href="#create" data-toggle="tab">CREATE</a></li>
+							 <li><a href="#update" data-toggle="tab">UPDATE</a></li>
+							 <li><a href="#delete" data-toggle="tab">DELETE</a></li>
+							  <li><a href="#deleteall" data-toggle="tab">DELETEALL</a></li>
+						</ul>
+						 <div id="my-tab-content" class="tab-content">
+			<div class="tab-pane active" id="create">
+						 <h4>NODE TYPE:</h4><input type="text" name="nodeTypecreate" id="nodeTypecreate"/>
+						 <button type="button" class="btn btn-default" ng-click="addNode1();clearone();">create</button>
+			</div>
+		<div class="tab-pane" id="update">
+		
+			<input type="hidden" name="nodeIdupdate" id="nodeIdupdate"/><br/><br/>
+			<!--<h4>Name:</h4><input type="text" name="nodeNameupdate" id="nodeNameupdate"/><br/><br/>-->
+			<h4>Type:</h4><input type="text" name="nodeTypeupdate" id="nodeTypeupdate"/><br/><br/>
+			<h4>Aka:</h4><textarea rows="2" cols="20" name="nodeAkaupdate" id="nodeAkaupdate"></textarea><br/><br/>
+			<h4>Fmap:</h4><textarea rows="4" cols="20" name="nodeFmapupdate" id="nodeFmapupdate"></textarea><br/><br/><br/>
+			<button type="button" class="btn btn-default" ng-click="updatetab();render();clearone();">save</button>
+		
+		</div>
+		<div class="tab-pane" id="delete">
+			 <h4>NODE TYPE:</h4><input type="text" name="nodeTypeDel" id="nodeTypeDel"/>
+			<button type="button" class="btn btn-default" ng-click="del();render();clearone();">Delete</button>
+		</div>
+		<div class="tab-pane" id="deleteall">
+			<button type="button" class="btn btn-default" ng-click="delall();render();clearone();">DeleteAll</button>
+		</div>
+		
+	</div>
+</div>
+</div>
+
+	</div>
+						</div>
+			
+		
+					</div>
+	</div>
+							
+		
+		
+	</div>
+	
+</body>
+</html>

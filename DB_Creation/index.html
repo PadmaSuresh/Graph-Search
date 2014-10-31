@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>UI FOR DATABASE CREATION</title>
+    
+    
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">	
+	<link rel="stylesheet" href="3p/css/bootstrap.min.css">
+	<link rel="stylesheet" href="3p/css/jquery-ui.min.css">
+	<link rel="stylesheet" href="3p/css/commondb.css">
+	<script src="js/libs/jquery.min.js"></script>
+	<script src="js/libs/jquery-ui.min.js"></script>
+	<script src="js/libs/bootstrap.min.js"></script>
+	<script src="js/libs/angular.min.js"></script>
+	<script src="js/DBapp.js"></script>
+	<script src="js/DBserver.js"></script>
+	<script src="js/fc_app.js"></script>
+</head>
+<body onload="hideDiv();">
+
+        <!-- Nav Bar -->
+    	<div class="navbar navbar-inverse navbar-fixed-top" role="navigation"> <!-- Nav Bar container start-->
+	    <div class="container"> <!-- Nav Bar -->
+	    <div class="row">
+		<div class="col-md-7">
+			<a class="navbar-brand" href="#"><font color="white"><h3>GRAPH SEARCH</h3> </font></a>
+		</div>
+		
+				
+	    </div>
+	    </div>
+	</div> <!-- Nav Bar container close --><br><br><br><br><br>
+	
+	
+	<div class="container">
+	    <div id="content">
+		<ul id="tabs" class="nav nav-pills" data-tabs="tabs">
+		     <li class="active"><a href="#create" data-toggle="tab">CREATE DATABASE</a></li>
+		    <li><a href="#GetAvailData" data-toggle="tab">GET AVAILABLE DATA</a></li>
+		  
+		</ul>
+		<div id="my-tab-content" class="tab-content">
+			<div class="tab-pane active" id="create">
+					<div class="container"><!-- Main Bar container start -->
+					    <div class="row">
+						<div class="col-md-6">
+						    <!--UI to get the DB Name from the USER	-->
+						    <br><BR>
+						    <div id="tableGetDB">
+						    <table>
+						    <tr>
+							<td> DataBase Name: </td>
+							<td>&nbsp</td>
+							<td><input type="text" id="Edbname"></td>
+							<td>&nbsp</td>
+							<td>&nbsp</td>
+						    </tr>
+						    <tr>
+							<td></td>
+							
+						    </tr>
+						    </table>
+						    </div>
+						</div>
+					    </div>
+					     <br><br>
+					     <div class="row">
+						<div class="col-md-9">
+						    <div id="dataTableDiv">
+						    <INPUT type="button" value="Add MetaFacts"class="btn btn-default" onclick="addRowSc('dataTable');" />					    <INPUT type="button" value="Delete"class="btn btn-default" onclick="deleteRowSc('dataTable')" />
+						  <br><br>
+						    <TABLE id="dataTable" width="350px" border="1">
+							<tr>
+							    <Th> &nbspSelect&nbsp </Th>
+							    <Th> &nbspValue&nbsp </Th>
+							    <Th> &nbsptype&nbsp </Th>
+							    <Th> &nbspcardinality&nbsp </Th>
+							    <Th> &nbspmapping&nbsp </Th>
+							
+							</tr>
+						    <TR>
+							<TD>&nbsp<INPUT type="checkbox" name="chk"/>&nbsp</TD>
+							<TD> <INPUT type="text" /> </TD>
+							<TD>
+							    <select id="select1">
+								    <option value="keyword">keyword</option>
+								    <option value="string">string</option>
+								    <option value="boolean">boolean</option>
+								    <option value="int">int</option>
+								    <option value="long">long</option>
+								    <option value="bigint">bigint</option>
+								    <option value="float">float</option>
+								    <option value="double">double</option>
+								    <option value="ref">ref</option>
+								    <option value="date">date</option>
+								    <option value="uuid">uuid</option>
+								    <option value="bytes">bytes</option>
+							    </select>
+							</TD>
+							<TD>
+							    <select id="select2">
+								    <option value="one">one</option>
+								    <option value="many">many </option>
+							    </select>
+							</TD>
+							<TD>
+							    <select id="select3">
+								    
+								    <option value="Default">Default</option>
+								    <option value="Absolute">Absolute</option>
+								    <option value="Prefix">Prefix</option>
+								    <option value="Custom">Custom</option>
+								    
+							    </select>
+							</TD>
+							
+						    </TR>
+						    </TABLE>
+						    
+	    
+						</div>
+						    <div id="output"></div>
+						 <div id="createdb">
+						  <br><br><INPUT type="button"  class="btn btn-default" value="CREATE DATABASE" onclick="saveJSON();Edb()" />
+						</div>
+						 
+					    </div>
+					</div>
+					      <div class="row">
+					       <div class="col-md-3"><!-- div col-md-3 starts -->
+						   <div id="tableGetData">
+							<table id="tableGetDataa"  border="1" cellpadding="2">
+							<caption><b>Enter the FACTS to store</b></caption><br><BR>
+							<tr>
+							    
+							</tr>
+						    </table>
+						   
+						    </div>
+							
+						    
+							
+						    <center>
+							<input type="button"class="btn btn-default"  id="add" value="
+							Data" onclick="Javascript:addRow()"></input>
+							
+							<input type="button" class="btn btn-default"  id="update" value="Update Data" onclick="Javascript:updateDetails()"></input>
+						    </center>
+						
+						</div><!-- div col-md-3 ends -->
+						 <div class="col-md-2"></div>
+						 <div class="col-md-7"><!-- div col-md-7 starts -->
+	    
+						<div id="tableData">
+						<table id="myTableData"  border="1" cellpadding="2">
+						    <caption><b>CURRENT FACTS ENTERED</b></caption><br><BR>
+						    <tr>
+							
+						    </tr>
+						</table>
+						</div>
+						
+						<br><br>
+						
+						<input type="button"class="btn btn-default"  id="SENDREQUEST" value="SENDREQUEST" onclick="AddData()" >
+						
+						</div><!-- div col-md-7 ends -->
+										    </div>
+					</div>
+			</div>
+			<div class="tab-pane" id="GetAvailData">
+			    <br/><br/>
+			    <div id="tableGetDBData">
+						    <table>
+						    <tr>
+							<td> DataBase Name: </td>
+							<td>&nbsp</td>
+							<td><input type="text" id="dbname"></td>
+							<td>&nbsp</td>
+							<td>&nbsp</td>
+							<td><input type="button" class="btn btn-default" id="GetDBData" value="View DataBase" onclick="view();"></td>
+						    </tr>
+						   
+						    </table>
+			    </div>
+			    
+			     <div id="GetAvailDat">
+				    <table id="GetAvailDataa"  border="1" cellpadding="2">
+					
+					    
+				    </table>
+			    </div>
+  
+			</div>
+			
+			
+			
+		</div>
+					
+	    </div>
+	</div>
+		
+	
+</body>
+</html>
